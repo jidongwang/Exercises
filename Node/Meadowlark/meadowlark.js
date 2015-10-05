@@ -1,6 +1,12 @@
 // JavaScript source code
 
+// This is trying to import a node module. It will look for a 'express'
+// folder under default module folder 'node_modules'
 var express = require('express');
+
+// importing a self-defined module. Note, it has to start with './', otherwise
+// Node will look for it inside the default folder 'node_modules' which will fail.
+var fortune = require('./lib/fortune.js');
 
 var app = express();
 
@@ -24,8 +30,7 @@ app.get('/', function (req, res) {
 });
 
 app.get('/about', function (req, res) {
-    var randomeFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
-    res.render('about', { fortune: randomeFortune });    // about.handlebars
+    res.render('about', { fortune: fortune.getFortune() });    // about.handlebars
 });
 
 // custom 404 page
